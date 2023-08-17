@@ -10,6 +10,8 @@ const mongoose = require('./utils/db')
 const { cekip, contact } = require('./moduls/contact');
 const methodOverride = require('method-override');
 
+
+
 const app = express()
 const port = 3000;
 
@@ -121,7 +123,7 @@ app.put('/contact', ([
     }),
     check('email', 'Emailnya gak valid Senpai >_<').isEmail(),
     check('nohp', 'No hp tidak Valid').isMobilePhone('id-ID')]
-), (req, res) => {
+), async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         // return res.status(400).json({ errors: errors.array() })
@@ -133,22 +135,24 @@ app.put('/contact', ([
 
         })
     } else {
-        contact.updateOne(
-
-            { _id: req.body._id },
-
-            {
-                $set: {
-                    nama: req.body.nama,
-                    nohp: req.body.nohp,
-                    email: req.body.email
-                }
+        await contact.updateOne({_id: req.body._id}, {
+            $set: {
+                nama: req.body.nama,
+                nohp: req.body.nohp,
+                email: req.body.email,
             }
 
 
-        )
+        }).then(result => {
+            req.flash('msg', 'Data telah Berhasil diedit')
+            res.redirect('/contact')
+    
+        })
     }
-}
+
+
+    }
+
 )
 
 
