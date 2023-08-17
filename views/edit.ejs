@@ -1,0 +1,33 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6">
+            <% if (typeof errors != 'undefined') { %>
+                <div class="alert alert-danger" role="alert">
+                   <% errors.forEach(err => { %>
+                     <ul>
+                        <li><%= err.msg; %></li>
+                     </ul>
+                   <% }) %>
+                  </div>
+            <% } %>
+            <form method="post" action="/contact?_method=PUT">
+                <div class="mb-3">
+                  <label for="nama" class="form-label">Nama</label>
+                  <input type="hidden" name="_id" id="<%= contacts._id %>">
+                  <input type="hidden" id="oldname" value="<%= contacts.oldname || contacts.nama %>">
+                  <input type="text" class="form-control" id="nama" name="nama" required value="<%= contacts.nama %>" />
+                </div>
+                <div class="mb-3">
+                  <label for="nohp" class="form-label">No HP</label>
+                  <input type="text" class="form-control" id="nohp" name="nohp" required value="<%= contacts.nohp %>"/>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" required value="<%= contacts.email %>"/>
+                </div> 
+                
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+              </form>
+        </div>
+    </div>
+</div>

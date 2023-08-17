@@ -1,0 +1,45 @@
+<style>
+.button {
+  background-color: #ff0000; /* Hijau */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {width: 250px;}
+.button2 {width: 50%;}
+.button3 {width: 100%;}
+</style>
+
+
+<div class="div md-3">
+    <div class="row">
+        <div class="col mt-5">
+            
+<% if (!seker) { %>
+    <div class="alert alert-primary" role="alert">
+        Data Contact Belum Ada <br> <a href="/contact" class="alert-link">Kembali Ke Halaman Contact</a>
+      </div>
+<% } else {%>
+            <div class="card text-bg-info mb-3" style="max-width: 18rem;">
+                <div class="card-header">Detail Contact</div>
+                <div class="card-body">
+                  <h5 class="card-title">Info <%= seker.nama %></h5>
+                  <p class="card-text">Nama : <%= seker.nama %></p>
+                  <p class="card-text">No Hp : <%= seker.nohp %></p>
+                  <p class="card-text">Email : <%= seker.email %></p>
+                </div>
+                <form action="/contact/?_method=DELETE" method="POST">
+                  <input type="hidden" name="nama" value="<%= seker.nama %>">
+                  <button type="submit" class="btn btn-danger md-3 button button3 text-center" onclick="return confirm('Apa Kamu Yakin Untuk Mendelete ini ?')">Delete</button>
+                </form>
+                <a href="/contact/edit/<%= seker.nama %>" class="btn btn-primary">Edit</a>
+              </div>
+              <% } %>
+        </div>
+    </div>
+</div>
